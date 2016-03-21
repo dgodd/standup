@@ -1,0 +1,6 @@
+<h2>New item</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: standup_item_path(@conn, :create, @standup) %>
+
+<%= link "Back", to: standup_item_path(@conn, :index, @standup) %>

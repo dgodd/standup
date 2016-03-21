@@ -1,0 +1,18 @@
+<h2>Show item</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @item.name %>
+  </li>
+
+  <li>
+    <strong>Standup:</strong>
+    <%= @standup.name %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: standup_item_path(@conn, :edit, @standup,@item) %>
+<%= link "Back", to: standup_item_path(@conn, :index, @standup) %>

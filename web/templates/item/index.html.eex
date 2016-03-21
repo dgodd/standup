@@ -1,0 +1,28 @@
+<h2>Listing items</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Standup</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for item <- @items do %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= item.standup_id %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: standup_item_path(@conn, :show, @standup, item), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: standup_item_path(@conn, :edit, @standup, item), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: standup_item_path(@conn, :delete, @standup, item), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New item", to: standup_item_path(@conn, :new, @standup) %>

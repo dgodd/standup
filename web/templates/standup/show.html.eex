@@ -1,0 +1,13 @@
+<h2>Show standup</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @standup.name %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: standup_path(@conn, :edit, @standup) %>
+<%= link "Back", to: standup_path(@conn, :index) %>

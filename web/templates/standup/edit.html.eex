@@ -1,0 +1,6 @@
+<h2>Edit standup</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: standup_path(@conn, :update, @standup) %>
+
+<%= link "Back", to: standup_path(@conn, :index) %>
