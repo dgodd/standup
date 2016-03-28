@@ -5,14 +5,13 @@ defmodule Standup.ItemController do
   alias Standup.Item
 
   plug :scrub_params, "item" when action in [:create, :update]
+  plug :load_standup when action in [:index]
 
-  def index(conn,  %{"standup_id" => standup_id}) do
-    standup = Repo.get!(Standup.Standup, standup_id) |> Repo.preload(:items)
-    items = standup.items 
-
-    render(conn, "index.html", items: items, standup: standup)
+  def index(conn,  _) do
+    standup = conn.assigns[:standup]
+    render(conn, "index.html", items: standup.items, standup: standup)
   end
-
+  
   def new(conn,  %{"standup_id" => standup_id}) do
     changeset = Item.changeset(%Item{})
     standup = Repo.get!(Standup.Standup, standup_id)
@@ -71,5 +70,10 @@ defmodule Standup.ItemController do
     conn
     |> put_flash(:info, "Item deleted successfully.")
     |> redirect(to: standup_item_path(conn, :index, standup: standup))
+  end
+  
+  defp load_standup(conn, _) do
+    standup = Repo.get!(Standup.Standup, conn.params["standup_id"]) |> Repo.preload(:items)    
+    assign(conn, :standup, standup)
   end
 end
