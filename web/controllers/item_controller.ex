@@ -1,13 +1,15 @@
 defmodule Standup.ItemController do
   use Standup.Web, :controller
+  import Ecto.Query
 
   alias Standup.Item
 
   plug :scrub_params, "item" when action in [:create, :update]
 
   def index(conn,  %{"standup_id" => standup_id}) do
-    items = Repo.all(Item)
-    standup = Repo.get!(Standup.Standup, standup_id)
+    standup = Repo.get!(Standup.Standup, standup_id) |> Repo.preload(:items)
+    items = standup.items 
+
     render(conn, "index.html", items: items, standup: standup)
   end
 

@@ -3,6 +3,8 @@ defmodule Standup.Standup do
 
   schema "standups" do
     field :name, :string
+    
+    has_many :items, Standup.Item
 
     timestamps
   end
